@@ -103,12 +103,35 @@ yahoo:
   url:     http://yahoo.com/
 `,
     },
+    {
+        Tree: Map{
+            "foo": Map{
+                "bar":  Map{
+                    "baz":  Scalar("multi\n\nlines"),
+                    "ding": Scalar("more\n\nmulti\n\nlines"),
+                },
+            },
+        },
+        Expect: `foo:
+  bar:
+    baz:  |
+      multi
+      
+      lines
+    ding: |
+      more
+      
+      multi
+      
+      lines
+`,
+    },
 }
 
 func TestRender(t *testing.T) {
     for idx, test := range stringTests {
         if got, want := Render(test.Tree), test.Expect; got != want {
-            t.Errorf("%d. got:\n%s\n%d. want:\n%s\n", idx, got, idx, want)
+            t.Errorf("%d. got:\n%q\n%d. want:\n%q\n", idx, got, idx, want)
         }
     }
 }

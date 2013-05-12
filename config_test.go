@@ -24,6 +24,16 @@ config:
       password: z3u5
     - username: lowly
       password: f!r3m3
+  welcome1: |
+    Welcome
+
+    to
+
+    gypsy!
+  welcome2: >
+    Welcome
+    to
+    gypsy!
 `
 
 var configGetTests = []struct {
@@ -45,6 +55,8 @@ var configGetTests = []struct {
     {"config.admin[0].username", "god", ""},
     {"config.admin[1].username", "lowly", ""},
     {"config.admin[2].username", "", `yaml: .config.admin[2].username: ".config.admin[2]" not found`},
+    {"config.welcome1", "Welcome\n\nto\n\ngypsy!\n", ""},
+    {"config.welcome2", "Welcome to gypsy!\n", ""},
 }
 
 func TestGet(t *testing.T) {

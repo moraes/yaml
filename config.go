@@ -1,7 +1,6 @@
 package yaml
 
 import (
-	//"bytes"
 	"fmt"
 	"io/ioutil"
 	"strconv"
